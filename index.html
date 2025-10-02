@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Breathtaking — Portfolio</title>
+  <meta name="description"
+    content="Polished, responsive single-file portfolio template with smooth scroll, scroll-snap, animated backgrounds and accessible navigation." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ========== CSS Variables & Reset ========== */
+    :root {
+      --bg: #585864;
+      --panel: rgba(241, 241, 241, 0.04);
+      --accent: #D18204;
+      --muted: #F1F1F1;
+      --glass: rgba(131, 6, 224, 0.06);
+      --max-width: 1200px;
+      --nav-height: 66px;
+      --radius: 14px;
+      --ease: cubic-bezier(.2, .9, .3, 1);
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg, #585864 0%, #8306E0 70%);
+      color: #F1F1F1
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    /* ========== Page layout ========== */
+    .site {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      position: relative;
+      padding-top: var(--nav-height);
+    }
+
+    /* ========== Navigation ========== */
+    nav {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 10px;
+      width: calc(100% - 40px);
+      max-width: 1240px;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      z-index: 1200;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(241, 241, 241, 0.03), rgba(241, 241, 241, 0.02));
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .brand .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #8306E0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #585864
+    }
+
+    .brand .title {
+      font-weight: 600;
+      font-size: 1rem
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .navlinks a {
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: all .22s var(--ease)
+    }
+
+    .navlinks a:hover {
+      color: #F1F1F1;
+      transform: translateY(-2px)
+    }
+
+    .navlinks a.active {
+      color: var(--accent);
+      box-shadow: inset 0 -2px 0 var(--accent)
+    }
+
+    /* mobile menu */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 0;
+      color: var(--muted);
+      font-size: 1.25rem;
+      padding: 8px;
+      cursor: pointer
+    }
+
+    .navlinks.open {
+      display: flex !important;
+    }
+
+    /* ========== Full-screen sections (scroll-snap) ========== */
+    main {
+      height: calc(100vh - 10px);
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    section {
+      min-height: calc(100vh - var(--nav-height) - 20px);
+      height: calc(100vh - var(--nav-height) - 20px);
+      scroll-snap-align: start;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 40px 24px;
+      gap: 24px
+    }
+
+    .panel {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 460px;
+      gap: 40px;
+      align-items: center
+    }
+
+    /* ========== Hero ========== */
+    .hero {
+      background: linear-gradient(180deg, rgba(241, 241, 241, 0.02), rgba(0, 0, 0, 0.02));
+      border-radius: var(--radius);
+      padding: 40px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Enhanced hero background with zoom effect */
+    .hero .bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 110%;
+      height: 110%;
+      background-image: url("image/background.jpeg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      transform-origin: center;
+      z-index: 0;
+      transition: transform 0.01s linear;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin: 0 0 12px 0;
+      line-height: 1;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin: 0 0 20px 0;
+      font-size: 1.05rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero .cta {
+      display: flex;
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #585864;
+      font-weight: 600;
+      box-shadow: 0 6px 18px rgba(209, 130, 4, 0.12);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(209, 130, 4, 0.2);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid rgba(241, 241, 241, 0.06);
+      color: var(--muted);
+      font-weight: 600
+    }
+
+    /* hero visual */
+    .visual {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 100%;
+      width: 60%;
+      background-image: url("image/contbg.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      transform-origin: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      right: -20%;
+      z-index: 2;
+    }
+
+    .visual .figure {
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(180deg, rgba(241, 241, 241, 0.02), rgba(241, 241, 241, 0.01));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .visual .figure img {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 12px 40px rgba(0, 0, 0, 0.6));
+    }
+
+    .bottom_image {
+      width: 100%;
+      height: 80vh;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background-image: url("image/standing-removebg-preview.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: bottom;
+      z-index: 1;
+    }
+
+    /* ========== Skills / Tools / Projects ========== */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 18px
+    }
+
+    .card {
+      background: var(--panel);
+      padding: 18px;
+      border-radius: 12px
+    }
+
+    .card h3 {
+      margin: 0 0 8px 0
+    }
+
+    .logos {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap
+    }
+
+    .logos img {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      background: #585864;
+      padding: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .logos img:hover {
+      transform: scale(1.2);
+    }
+
+    /* Projects grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px
+    }
+
+    .project {
+      background: linear-gradient(180deg, rgba(241, 241, 241, 0.02), rgba(0, 0, 0, 0.02));
+      padding: 16px;
+      border-radius: 12px
+    }
+
+    .project img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px
+    }
+
+    /* Contact Form and List */
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px auto 0; /* Center the list */
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      max-width: 600px; /* Match form width for consistency */
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      padding: 10px;
+      border-radius: 8px;
+      transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .contact-list li:hover {
+      background: var(--glass);
+      transform: translateX(8px);
+    }
+
+    .contact-list img {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0.8);
+      transition: filter 0.3s var(--ease);
+    }
+
+    .contact-list li:hover img {
+      filter: brightness(1);
+    }
+
+    /* footer */
+    footer {
+      padding: 30px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* ========== Background accent shapes & enhanced BGs ========== */
+    .shape {
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      opacity: 0.08;
+      filter: blur(30px);
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #D18204, #8306E0 40%, transparent 60%)
+    }
+
+    /* Section-specific backgrounds with zoom */
+    .about-bg,
+    .skills-bg,
+    .projects-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 90%;
+      border-radius: 20%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      transform-origin: center;
+      z-index: 0;
+      transition: transform 0.1s linear;
+    }
+
+    .about-bg {
+      background-image: url("image/Gemini_Generated_Image_nc46rqnc46rqnc46.png");
+    }
+
+    .skills-bg {
+      background-image: url("image/Gemini_Generated_Image_nc46rqnc46rqnc46.png");
+    }
+
+    .projects-bg {
+      background-image: url("image/Gemini_Generated_Image_nra9x7nra9x7nra9.png");
+    }
+
+    /* ========== Responsive Media Queries for Mobile ========== */
+
+    /* Tablets and medium screens (max-width: 768px) */
+    @media (max-width: 768px) {
+      :root {
+        --nav-height: 56px; /* Smaller nav for mobile */
+        --radius: 10px; /* Slightly smaller borders */
+      }
+
+      nav {
+        top: 8px;
+        width: calc(100% - 20px);
+        padding: 6px 12px;
+        border-radius: 10px;
+      }
+
+      .brand .logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+      }
+
+      .brand .title {
+        font-size: 0.95rem;
+      }
+
+      .navlinks {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: calc(var(--nav-height) + 8px);
+        left: 0;
+        width: 100%;
+        background: var(--panel);
+        padding: 12px;
+        border-radius: 0 0 10px 10px;
+        gap: 6px;
+        align-items: flex-start;
+      }
+
+      .navlinks a {
+        padding: 10px;
+        font-size: 1rem;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        font-size: 1.1rem;
+      }
+
+      section {
+        min-height: auto; /* Allow sections to shrink on mobile */
+        height: auto;
+        padding: 30px 16px;
+        gap: 16px;
+      }
+
+      .panel {
+        grid-template-columns: 1fr; /* Stack content vertically */
+        gap: 24px;
+      }
+
+      .hero {
+        padding: 20px;
+        text-align: center; /* Center text for better mobile readability */
+      }
+
+      .hero h1 {
+        font-size: clamp(1.8rem, 8vw, 2.8rem);
+        position: relative; /* Remove absolute positioning issues */
+        left: auto;
+        bottom: auto;
+        width: auto;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .cta {
+        justify-content: center;
+      }
+
+      .btn {
+        padding: 8px 12px;
+        font-size: 0.95rem;
+      }
+
+      .visual {
+        order: -1; /* Move visual above content */
+        height: 240px;
+        width: 100%; /* Full width on mobile */
+        right: 0;
+        margin-bottom: 16px;
+      }
+
+      .bottom_image {
+        height: 50vh; /* Reduce height to fit better */
+        background-size: contain; /* Prevent cropping */
+      }
+
+      .shape {
+        display: none; /* Hide decorative shapes on mobile */
+      }
+
+      .cards {
+        gap: 12px;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      .logos img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr; /* Single column for projects */
+        gap: 12px;
+      }
+
+      .project img {
+        height: 160px;
+        object-fit: contain; /* Better image fitting */
+      }
+
+      .contact-list {
+        gap: 8px;
+        max-width: 100%;
+      }
+
+      .contact-list li {
+        padding: 8px;
+        font-size: 0.95rem;
+        max-width: 100%;
+      }
+
+      /* Reduce animations for performance */
+      .reveal {
+        transition-duration: 0.8s; /* Shorter animations */
+      }
+
+      /* Hide scroll-snap on very small screens if janky (optional) */
+      main {
+        scroll-snap-type: none; /* Disable snap for smoother scrolling on mobile */
+      }
+    }
+
+    /* Small phones (max-width: 480px) */
+    @media (max-width: 480px) {
+      :root {
+        --nav-height: 50px;
+      }
+
+      nav {
+        padding: 4px 8px;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.5rem, 8vw, 2.2rem);
+      }
+
+      .hero p {
+        font-size: 0.9rem;
+      }
+
+      .visual {
+        height: 200px;
+        width: 40%;
+        left: 30%;
+      }
+
+      .bottom_image {
+        height: 40vh;
+      }
+
+      .logos img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .project img {
+        height: 140px;
+      }
+
+      .contact-list li {
+        font-size: 0.85rem;
+        gap: 8px;
+      }
+
+      footer {
+        padding: 20px;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Very small phones (max-width: 320px) - Extra tweaks for tiny screens */
+    @media (max-width: 320px) {
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .btn {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+      }
+
+      .contact-list li {
+        flex-direction: column; /* Stack icon and text vertically if too cramped */
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    /* small polish */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none
+    }
+
+    /* Staggered delays for child elements */
+    .reveal > * {
+      transition-delay: 0s;
+    }
+
+    .reveal.visible > *:nth-child(1) { transition-delay: 0.1s; }
+    .reveal.visible > *:nth-child(2) { transition-delay: 0.2s; }
+    .reveal.visible > *:nth-child(3) { transition-delay: 0.3s; }
+    .reveal.visible > *:nth-child(4) { transition-delay: 0.4s; }
+    .reveal.visible > *:nth-child(5) { transition-delay: 0.5s; }
+    .reveal.visible > *:nth-child(6) { transition-delay: 0.6s; }
+    .reveal.visible > *:nth-child(7) { transition-delay: 0.7s; }
+    .reveal.visible > *:nth-child(8) { transition-delay: 0.8s; }
+    .reveal.visible > *:nth-child(9) { transition-delay: 0.9s; }
+    .reveal.visible > *:nth-child(10) { transition-delay: 1s; }
+
+    /* Additional stagger for grids and lists */
+    .projects-grid .reveal.visible > *:nth-child(1) { transition-delay: 0.2s; }
+    .projects-grid .reveal.visible > *:nth-child(2) { transition-delay: 0.4s; }
+    .logos .reveal.visible > *:nth-child(1) { transition-delay: 0.1s; }
+    .logos .reveal.visible > *:nth-child(2) { transition-delay: 0.2s; }
+    .logos .reveal.visible > *:nth-child(3) { transition-delay: 0.3s; }
+    .contact-list .reveal.visible > *:nth-child(1) { transition-delay: 0.1s; }
+    .contact-list .reveal.visible > *:nth-child(2) { transition-delay: 0.2s; }
+    .contact-list .reveal.visible > *:nth-child(3) { transition-delay: 0.3s; }
+    .contact-list .reveal.visible > *:nth-child(4) { transition-delay: 0.4s; }
+
+    /* Centering Contact Section */
+    #contact .panel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    #contact .panel > div {
+      max-width: 600px; /* Limit the width for better readability */
+      width: 100%;
+    }
+
+    /* Hide all scrollbars */
+    html,
+    body,
+    main,
+    textarea {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+      /* Chrome, Safari, and Opera */
+    }
+
+    /* Active link animation */
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 3px;
+      animation: slideIn 0.3s ease forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        width: 0;
+        opacity: 0;
+      }
+
+      to {
+        width: 100%;
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav aria-label="Primary Navigation">
+    <div class="brand">
+      <div class="logo">KY</div>
+      <div class="title">KOWSALYA</div>
+    </div>
+
+    <div class="navlinks" id="navlinks" role="menubar">
+      <a class="navlink" href="#home">Home</a>
+      <a class="navlink" href="#about">About</a>
+      <a class="navlink" href="#skills">Skills</a>
+      <a class="navlink" href="#projects">Projects</a>
+      <a class="navlink" href="#contact">Contact</a>
+    </div>
+
+    <button class="menu-toggle" aria-controls="navlinks" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+  </nav>
+
+  <div class="site">
+    <main id="main" tabindex="0">
+
+      <!-- HERO / Home -->
+      <section id="home" class="reveal" aria-label="Home" role="region">
+        <div class="panel">
+          <div class="hero reveal">
+            <div class="bg"></div>
+            <h1 class="reveal">HELLO! I’m <span style="color:var(--accent)">Kowsalya</span></h1>
+            <p class="reveal">I’m a 3rd year IT student building beautiful, responsive web experiences. I focus on front-end
+              development.</p>
+            <div class="cta reveal">
+              <a class="btn reveal" href="#projects" role="button">View Projects</a>
+              <a class="btn ghost reveal" href="#contact" role="button">Contact info</a>
+            </div>
+            <div class="bottom_image reveal"></div>
+          </div>
+
+          <aside class="visual reveal" aria-hidden="true">
+            <div class="figure reveal">
+              <img src="D:\project\portpolio\image\profile.png" alt="Illustration" />
+            </div>
+          </aside>
+        </div>
+        <div class="shape reveal" aria-hidden="true"></div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="reveal about-section" aria-label="About me">
+        <div class="about-bg reveal"></div>
+        <div class="panel reveal">
+          <div class="reveal">
+            <h2 class="reveal" style="margin-top:0; color: #D18204;">About Me</h2>
+            <p class="reveal" style="color:var(--muted)">I’m currently pursuing my degree at R P Sarathy Institute of Technology. I’m
+              working towards becoming a Full Stack Developer, with a special interest in front-end design. I enjoy
+              creating responsive and visually engaging websites that are both interactive and user-friendly. I’m always
+              eager to learn new skills and improve as I grow in the field of web development.</p>
+          </div>
+
+          <aside class="reveal" style="display:flex;flex-direction:column;gap:12px">
+            <div class="card reveal">
+              <h3 class="reveal" style="color: #D18204;">Skills snapshot</h3>
+              <div class="logos reveal" style="margin-top:12px">
+                <img class="reveal" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" />
+                <img class="reveal" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" />
+                <img class="reveal" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                  alt="JS" />
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="reveal skills-section" aria-label="Skills & Tools" style="background-image: url(image/contbg.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: bottom;
+       width: 100%;
+      height: 90%;
+      border-radius: 20%;
+      margin-bottom: 10%;">
+        <div class="skills-bg reveal"></div>
+        <div class="panel reveal" style="grid-template-columns:1fr 420px">
+          <div class="reveal">
+            <h2 class="reveal" style="margin-top:0; color: #D18204;">Skills</h2>
+            <p class="reveal" style="color:black">Languages, frameworks and tools I use daily.</p>
+
+            <div class="reveal" style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap">
+              <div class="card reveal" style="min-width:200px">
+                <h3 class="reveal" style="color: #D18204;">Front-end</h3>
+                <p class="reveal" style="color:black;margin:0">HTML, CSS, JavaScript, React basics</p>
+              </div>
+
+              <div class="card reveal" style="min-width:200px">
+                <h3 class="reveal" style="color: #D18204;">UI&UX Designer</h3>
+                <p class="reveal" style="color:black;margin:0 ">Figma</p>
+              </div>
+            </div>
+          </div>
+
+          <aside class="reveal">
+            <h3 class="reveal" style="color: #D18204;">Tools</h3>
+            <div class="logos reveal" style="margin-top:12px">
+              <img class="reveal" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode" />
+              <img class="reveal" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" />
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="reveal projects-section" aria-label="Projects">
+        <div class="projects-bg reveal"></div>
+        <div class="reveal" style="max-width:1100px;margin:0 auto; position: relative; z-index: 2;">
+          <h2 class="reveal" style="margin-top:0; color: #D18204;">Projects</h2>
+          <p class="reveal" style="color:black">A selection of projects — short descriptions and links.</p>
+
+          <div class="projects-grid reveal" style="margin-top:18px">
+            <article class="project reveal">
+              <img class="reveal" src="https://screenshots.codesandbox.io/8kew0/61.png"
+                alt="Screenshot of Indoor Air Quality Monitor project" />
+              <h3 class="reveal" style="color: #D18204;">Indoor Air Quality Monitor (Mini project)</h3>
+              <p class="reveal" style="color:black;margin:8px 0">Built with minimal hardware and a laptop — UI + sensor data
+                visualization.</p>
+            </article>
+
+            <article class="project reveal">
+              <img class="reveal"
+                src="https://1.bp.blogspot.com/-4AQ6-vNhzP4/XrPKZKrZBqI/AAAAAAAAAV0/W0z04T0_Rrsf7TwMAu3jyl7eF6nrameuQCLcBGAsYHQ/s1600/Working%2BCalculator%2Busing%2BHTML%2BCSS%2Band%2BjQuery.png"
+                alt="Screenshot of Responsive portfolio project" />
+              <h3 class="reveal" style="color: #D18204;">Responsive portfolio</h3>
+              <p class="reveal" style="color:black;margin:8px 0">This single-file template with scroll-snap animations.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="reveal" aria-label="Contact">
+        <div class="panel reveal">
+          <div class="reveal">
+            <h2 class="reveal" style="margin-top:0; color: #D18204;">Contact Me</h2>
+            <p class="reveal" style="color:var(--muted)">The Details Below.</p>
+
+            <ul class="contact-list reveal">
+              <li class="reveal"><i class="fas fa-phone"></i>
+                <span style="color: #D18204;">Phone:</span> +91 99448 42426
+              </li>
+              <li class="reveal"><i class="fas fa-envelope"></i>
+                <span style="color: #D18204;">Email:</span> kowsalyark28@gmail.com
+              </li>
+              <li class="reveal"><i class="fab fa-github"></i>
+                <span style="color: #D18204;">GitHub:</span> <a href="https://github.com/kowsalya369" target="_blank" rel="noopener noreferrer">kowsalya369</a>
+              </li>
+              <li class="reveal"><i class="fab fa-linkedin"></i>
+                <span style="color: #D18204;">LinkedIn:</span> <a href="https://www.linkedin.com/in/kowsalya-ramalingam-b07276324/" target="_blank" rel="noopener noreferrer">kowsalya-ramalingam</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer class="reveal">
+        © <span id="year"></span> Kowsalya • Built with ❤️
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    // Enhanced utilities: active nav, reveal, mobile menu, background zoom, form handling
+    const navlinks = Array.from(document.querySelectorAll('.navlink'));
+    const sections = Array.from(document.querySelectorAll('main section'));
+    const main = document.querySelector('main');
+    const yearEl = document.getElementById('year');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinksContainer = document.getElementById('navlinks');
+    yearEl.textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', !isExpanded);
+      navLinksContainer.classList.toggle('open');
+      menuToggle.textContent = isExpanded ? '☰' : '✕';
+    });
+
+    // Close menu on link click
+    navlinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 800) {
+          navLinksContainer.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.textContent = '☰';
+        }
+      });
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && navLinksContainer.classList.contains('open')) {
+        navLinksContainer.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.textContent = '☰';
+      }
+    });
+
+    // Background zoom effect on scroll
+    const backgrounds = document.querySelectorAll('.bg, .about-bg, .skills-bg, .projects-bg');
+    main.addEventListener("scroll", () => {
+      let scrollTop = main.scrollTop;
+      let viewportHeight = window.innerHeight;
+
+      backgrounds.forEach(bg => {
+        let section = bg.closest("section");
+        let sectionTop = section.offsetTop;
+        let distance = scrollTop - sectionTop;
+
+        if (distance >= -viewportHeight && distance <= viewportHeight) {
+          let scale = 1 + Math.min(Math.abs(distance) / 5000, 0.1);
+          bg.style.transform = `scale(${scale})`;
+        }
+      });
+    });
+
+    // IntersectionObserver for active nav + reveal animations
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        // reveal
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Staggered reveal for all inner reveal elements
+          entry.target.querySelectorAll('.reveal').forEach((el, index) => {
+            setTimeout(() => {
+              el.classList.add('visible');
+            }, index * 100);
+          });
+        }
+        // nav active state
+        if (entry.intersectionRatio > 0.55) {
+          navlinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+        }
+      });
+    }, { threshold: [0.1, 0.3, 0.6], rootMargin: '-10% 0px -20% 0px' });
+
+    sections.forEach(s => io.observe(s));
+
+    // reveal helper: initially mark elements inside each section
+    document.querySelectorAll('section').forEach(section => {
+      section.classList.add('reveal');
+      section.querySelectorAll('.card, .project, h2, p, .figure, .btn, li, img, .logos, .contact-list').forEach(el => el.classList.add('reveal'));
+    });
+
+    // keyboard nav: arrow down/up moves section
+    main.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const current = sections.findIndex(sec => {
+          const rect = sec.getBoundingClientRect();
+          return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
+        });
+        let next = current;
+        if (e.key === 'ArrowDown') next = Math.min(sections.length - 1, current + 1);
+        if (e.key === 'ArrowUp') next = Math.max(0, current - 1);
+        sections[next].scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  </script>
+</body>
+
+</html>
